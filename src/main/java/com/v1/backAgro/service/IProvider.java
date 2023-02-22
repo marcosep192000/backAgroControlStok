@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IProvider {
 	void create(ProviderDto providerDto);
-	List<Provider> AllProviders();
+	List<ProviderDto> AllProviders();
+	void   update(ProviderDto providerDto,Long id);
 }

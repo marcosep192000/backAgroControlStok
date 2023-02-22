@@ -8,6 +8,7 @@ import com.v1.backAgro.service.IProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 @Service
 public class ProviderImpl implements IProvider {
@@ -20,8 +21,15 @@ public class ProviderImpl implements IProvider {
 		Provider provider = repository.save(mappers.toProvider(providerDto));
 	}
 	@Override
-	public List<Provider> AllProviders() {
-		return repository.findAll();
+	public List<ProviderDto> AllProviders() {
+		List <ProviderDto> list = mappers.listToProvider(repository.findAll());
+		return list;
+	}
+	@Override
+	public void  update(ProviderDto providerDto , Long id){
+		Provider provider = repository.findById(id).orElse(null);
+		mappers.updateProvider(providerDto,provider);
+		repository.save(provider);
 	}
 
 }
